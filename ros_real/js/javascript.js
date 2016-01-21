@@ -1,5 +1,5 @@
 var ros = new ROSLIB.Ros({
-			    url : 'ws://localhost:9090'
+			    url : 'ws://192.168.43.79:9090'
 			  });
 			  ros.on('connection', function() {
 			    console.log('Connected to websocket server.');
@@ -116,7 +116,21 @@ function load_waiting_list(){
   });
 }
 
+function request_page(){
+	var pub = new ROSLIB.Topic({
+			    ros : ros,
+			    name : 'request_page',
+			    messageType : 'std_msgs/Int8'
+			  });
+		var pressed = new ROSLIB.Message({
+			    data : 1
+			  });
+			  pub.publish(pressed);
+}
+
 $(document).ready(function(){
+
+	request_page();
 
 	// Subscribing to a Topic
   // ----------------------
